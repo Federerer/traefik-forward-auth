@@ -28,6 +28,9 @@ spec:
           value: "/config"
         - name: DOMAIN
           value: "example.com"
+        # INSECURE_COOKIE is required unless using https entrypoint
+        - name: INSECURE_COOKIE
+          value: "true"
         # Remove COOKIE_DOMAIN if not using auth host mode
         - name: COOKIE_DOMAIN
           value: "example.com"
@@ -39,18 +42,18 @@ spec:
         - name: PROVIDERS_GOOGLE_CLIENT_ID
           valueFrom:
             secretKeyRef:
-              name: secrets
+              name: traefik-forward-auth-secrets
               key: google-client-id
         - name: PROVIDERS_GOOGLE_CLIENT_SECRET
           valueFrom:
             secretKeyRef:
-              name: secrets
+              name: traefik-forward-auth-secrets
               key: google-client-secret
-        - name: COOKIE_SECRET
+        - name: SECRET
           valueFrom:
             secretKeyRef:
-              name: secrets
-              key: cookie-secret
+              name: traefik-forward-auth-secrets
+              key: secret
         volumeMounts:
         - name: configs
           mountPath: /config
@@ -60,6 +63,6 @@ spec:
       - name: configs
         configMap:
           name: configs
-      - name: secrets
+      - name: traefik-forward-auth-secrets
         secret:
           secretName: secrets

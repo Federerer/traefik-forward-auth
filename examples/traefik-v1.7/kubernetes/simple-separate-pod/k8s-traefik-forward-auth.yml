@@ -29,21 +29,24 @@ spec:
         env:
         - name: DOMAIN
           value: "example.com"
+        # INSECURE_COOKIE is required unless using https entrypoint
+        - name: INSECURE_COOKIE
+          value: "true"
         - name: PROVIDERS_GOOGLE_CLIENT_ID
           valueFrom:
             secretKeyRef:
-              name: secrets
+              name: traefik-forward-auth-secrets
               key: traefik-forward-auth-google-client-id
         - name: PROVIDERS_GOOGLE_CLIENT_SECRET
           valueFrom:
             secretKeyRef:
-              name: secrets
+              name: traefik-forward-auth-secrets
               key: traefik-forward-auth-google-client-secret
-        - name: COOKIE_SECRET
+        - name: SECRET
           valueFrom:
             secretKeyRef:
-              name: secrets
-              key: traefik-forward-auth-cookie-secret
+              name: traefik-forward-auth-secrets
+              key: traefik-forward-auth-secret
 
 ---
 #
@@ -84,4 +87,4 @@ type: Opaque
 data:
   traefik-forward-auth-google-client-id: base64-client-id
   traefik-forward-auth-google-client-secret: base64-client-secret
-  traefik-forward-auth-cookie-secret: base64-something-random
+  traefik-forward-auth-secret: base64-something-random
