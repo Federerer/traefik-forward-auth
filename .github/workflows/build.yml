@@ -23,8 +23,8 @@ jobs:
         fi
         echo ::set-output name=build_date::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
         echo ::set-output name=docker_platforms::linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
-        echo ::set-output name=docker_username::npawelek
-        echo ::set-output name=docker_image::npawelek/traefik-forward-auth
+        echo ::set-output name=docker_username::federerer
+        echo ::set-output name=docker_image::federerer/traefik-forward-auth
 
     - name: Set up Docker Buildx
       uses: crazy-max/ghaction-docker-buildx@v1
